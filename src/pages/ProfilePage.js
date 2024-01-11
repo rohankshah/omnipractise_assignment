@@ -40,7 +40,6 @@ function ProfilePage() {
           followerArr.push({ ...doc.data(), uid: doc.id });
         }
       });
-      console.log(followerArr);
       setUserFollowCount(followCount);
       setUserFollowerArr(followerArr);
     }

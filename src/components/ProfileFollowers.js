@@ -5,10 +5,10 @@ import UserCard from "./UserCard";
 function ProfileFollowers(props) {
   const userFollowing = useSelector((state) => state && state.userFollowing);
 
-  useEffect(() => {
-    console.log("userFollowing:", userFollowing);
-    console.log("props.followers:", props.followers);
-  }, [userFollowing, props.followers]);
+  //   useEffect(() => {
+  //     console.log("userFollowing:", userFollowing);
+  //     console.log("props.followers:", props.followers);
+  //   }, [userFollowing, props.followers]);
 
   return (
     <>
