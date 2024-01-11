@@ -2,6 +2,7 @@ const initialState = {
   authObj: {},
   loggedIn: false,
   allUsers: [],
+  userFollowing: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -11,11 +12,27 @@ function rootReducer(state = initialState, action) {
       authObj: action.payload,
       loggedIn: true,
     };
-  }
-  if (action.type === "SET-ALL-USERS") {
+  } else if (action.type === "SET-ALL-USERS") {
     return {
       ...state,
       allUsers: action.payload,
+    };
+  } else if (action.type === "SET-USER-FOLLOW") {
+    return {
+      ...state,
+      userFollowing: [...state.userFollowing, action.payload],
+    };
+  } else if (action.type === "SET-USER-FOLLOWING") {
+    return {
+      ...state,
+      userFollowing: action.payload,
+    };
+  } else if (action.type === "SET-USER-UNFOLLOW") {
+    return {
+      ...state,
+      userFollowing: [
+        ...state.userFollowing.filter((ele) => ele !== action.payload),
+      ],
     };
   } else {
     return { ...state };

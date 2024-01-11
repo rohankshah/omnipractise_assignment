@@ -25,7 +25,7 @@ function signUpUser(userEmail, userPass, userName) {
         })
           .then(() => {
             const db = getFirestore(app);
-            var userUid = auth.currentUser.uid;
+            const userUid = auth.currentUser.uid;
             setDoc(doc(db, "users", userUid), {
               name: userName,
               email: userEmail,
