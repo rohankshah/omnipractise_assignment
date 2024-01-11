@@ -37,7 +37,9 @@ function signUpUser(userEmail, userPass, userName) {
             setDoc(doc(db, "users", userUid), {
               name: userName,
               email: userEmail,
-            }).then(() => dispatch(userLoginSuccess(userCredential.user)));
+            })
+              .then(() => dispatch(userLoginSuccess(userCredential.user)))
+              .then(() => dispatch(fetchAllUsers()));
           })
           .catch((error) => {
             console.log(error);
