@@ -1,12 +1,40 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { useDispatch } from "react-redux";
+import { getFirestore, getDocs, collection } from "firebase/firestore";
+import { useSelector } from "react-redux";
 import { Dialog, Transition } from "@headlessui/react";
 import { publishNewPost } from "../actions/user-actions";
+import app from "../firebase";
+import PostCard from "../components/PostCard";
 
 function FeedPage() {
+  const authObj = useSelector((state) => state && state.authObj);
+  const userFollowing = useSelector((state) => state && state.userFollowing);
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [newPost, setNewPost] = useState("");
+
+  const [feedPostObjs, setFeedPostObjs] = useState([]);
+
+  useEffect(() => {
+    async function getUserPosts() {
+      const db = getFirestore(app);
+      const querySnapshot = await getDocs(collection(db, "posts"));
+      const currentPosts = [];
+      querySnapshot.forEach((doc) => {
+        if (userFollowing.includes(doc.data().uid)) {
+          currentPosts.push({ ...doc.data(), postId: doc.id });
+        }
+      });
+      currentPosts.sort((a, b) => b.timestamp.seconds - a.timestamp.seconds);
+      console.log(currentPosts);
+      setFeedPostObjs(currentPosts);
+    }
+    if (userFollowing.length > 0) {
+      getUserPosts();
+      console.log(feedPostObjs);
+    }
+  }, [authObj, userFollowing]);
 
   function closeModal() {
     setIsOpen(false);
@@ -81,15 +109,20 @@ function FeedPage() {
           </div>
         </Dialog>
       </Transition>
-      <div className="lg:max-w-[600px] w-full mt-10">
+      <div className="lg:max-w-[650px] w-full mt-10">
         <div className="flex flex-col">
           <div
-            className="rounded px-6 py-2 w-fit bg-pink-600 text-white cursor-pointer mt-10"
+            className="rounded px-6 py-2 w-fit bg-pink-600 text-white cursor-pointer mt-10 mb-10"
             onClick={openModal}
           >
             Write
           </div>
         </div>
+        {feedPostObjs.length > 0 ? (
+          <PostCard posts={feedPostObjs} />
+        ) : (
+          <div>No posts</div>
+        )}
       </div>
     </>
   );

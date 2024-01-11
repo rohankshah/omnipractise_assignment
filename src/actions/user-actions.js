@@ -53,12 +53,13 @@ function fetchAllUsers() {
       }
     });
     dispatch(setAllUsers(allUsers));
+
     const currUserRef = doc(db, "users", currUserUid);
     const currUserSnap = await getDoc(currUserRef);
-
     if (currUserSnap.exists()) {
       if (currUserSnap.data().userFollowing) {
         const userFollowing = currUserSnap.data().userFollowing;
+        console.log("here");
         dispatch(setUserFollowing(userFollowing));
       }
     }

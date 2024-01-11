@@ -6,6 +6,7 @@ import {
 } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import app from "../firebase";
+import { fetchAllUsers } from "./user-actions";
 
 function userLoginSuccess(userCredential) {
   return {
@@ -50,6 +51,7 @@ function loginExistingUser(userEmail, userPass) {
         console.log(userCredential);
         dispatch(userLoginSuccess(userCredential.user));
       })
+      .then(() => dispatch(fetchAllUsers()))
       .catch((error) => {
         console.log(error);
       });

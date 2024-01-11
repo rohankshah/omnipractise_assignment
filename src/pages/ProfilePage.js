@@ -23,19 +23,31 @@ function ProfilePage() {
         {/* Tabs */}
         <div className="flex flex-row justify-center w-full mt-14 border-t-2 border-gray-200 px-6">
           <div
-            className="px-14 py-4 text-gray-600 cursor-pointer"
+            className={
+              selectedTab === "posts"
+                ? "px-14 py-4 text-gray-600 cursor-pointer font-bold"
+                : "px-14 py-4 text-gray-600 cursor-pointer"
+            }
             onClick={() => setSelectedTab("posts")}
           >
             Posts
           </div>
           <div
-            className="px-14 py-4 text-gray-600 cursor-pointer"
+            className={
+              selectedTab === "followers"
+                ? "px-14 py-4 text-gray-600 cursor-pointer font-bold"
+                : "px-14 py-4 text-gray-600 cursor-pointer"
+            }
             onClick={() => setSelectedTab("followers")}
           >
             Followers
           </div>
           <div
-            className="px-14 py-4 text-gray-600 cursor-pointer"
+            className={
+              selectedTab === "following"
+                ? "px-14 py-4 text-gray-600 cursor-pointer font-bold"
+                : "px-14 py-4 text-gray-600 cursor-pointer"
+            }
             onClick={() => setSelectedTab("following")}
           >
             Following
