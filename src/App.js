@@ -1,10 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import SignupPage from "./pages/SignupPage";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
+  const authObj = useSelector((state) => state && state.authObj);
+
+  useEffect(() => {
+    if (Object.keys(authObj).length > 0) {
+      navigate("/user");
+    }
+  }, [authObj, navigate]);
 
   return (
     <div className="flex justify-center">
@@ -12,7 +19,13 @@ function App() {
         <Route path="/" element={<SignupPage />} />
         <Route
           path="/user"
-          element={isLogin ? <div>Logged in</div> : <Navigate to="/" />}
+          element={
+            Object.keys(authObj).length > 0 ? (
+              <div>Logged in</div>
+            ) : (
+              <Navigate to="/" />
+            )
+          }
         />
       </Routes>
     </div>

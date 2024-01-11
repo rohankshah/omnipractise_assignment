@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { signUpUser } from "../actions/login-signup-actions";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { signUpUser, loginExistingUser } from "../actions/login-signup-actions";
 
 function SignupPage() {
-  const currUser = useSelector((state) => state && state);
-
   const dispatch = useDispatch();
 
   const [currentTab, setCurrentTab] = useState("signup");
@@ -29,9 +27,10 @@ function SignupPage() {
     }
   }
 
-  useEffect(() => {
-    console.log(currUser);
-  }, [currUser]);
+  function loginUser() {
+    console.log(userEmailLogin, userPassLogin);
+    dispatch(loginExistingUser(userEmailLogin, userPassLogin));
+  }
 
   return (
     <div className="min-h-screen flex justify-center max-w-[1200px] lg:min-w-[1200px]">
@@ -114,7 +113,10 @@ function SignupPage() {
               />
               <div className="flex flex-row justify-between items-center">
                 <span>Forgot Password?</span>
-                <div className="rounded px-6 py-2 w-fit bg-pink-600 text-white cursor-pointer">
+                <div
+                  className="rounded px-6 py-2 w-fit bg-pink-600 text-white cursor-pointer"
+                  onClick={() => loginUser()}
+                >
                   Login
                 </div>
               </div>

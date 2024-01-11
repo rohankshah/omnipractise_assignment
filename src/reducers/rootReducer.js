@@ -3,7 +3,7 @@ const initialState = {
 };
 
 function rootReducer(state = initialState, action) {
-  if (action.type === "USER-SIGNUP-SUCCESS") {
+  if (action.type === "USER-LOGIN-SUCCESS") {
     return {
       ...state,
       authObj: action.payload,

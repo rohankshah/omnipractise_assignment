@@ -1,12 +1,13 @@
 import {
   getAuth,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
 
-function userSignupSuccess(userCredential) {
+function userLoginSuccess(userCredential) {
   return {
-    type: "USER-SIGNUP-SUCCESS",
+    type: "USER-LOGIN-SUCCESS",
     payload: userCredential,
   };
 }
@@ -21,7 +22,7 @@ function signUpUser(userEmail, userPass, userName) {
           displayName: userName,
         })
           .then(() => {
-            dispatch(userSignupSuccess(userCredential.user));
+            dispatch(userLoginSuccess(userCredential.user));
           })
           .catch((error) => {
             console.log(error);
@@ -33,4 +34,19 @@ function signUpUser(userEmail, userPass, userName) {
   };
 }
 
-export { signUpUser };
+function loginExistingUser(userEmail, userPass) {
+  return (dispatch, state) => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, userEmail, userPass)
+      .then((userCredential) => {
+        console.log("login success");
+        console.log(userCredential);
+        dispatch(userLoginSuccess(userCredential.user));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
+
+export { signUpUser, loginExistingUser };
