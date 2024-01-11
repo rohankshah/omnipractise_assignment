@@ -9,7 +9,6 @@ import {
   arrayRemove,
   Timestamp,
   addDoc,
-  serverTimestamp,
 } from "firebase/firestore";
 import app from "../firebase";
 
@@ -59,7 +58,6 @@ function fetchAllUsers() {
     if (currUserSnap.exists()) {
       if (currUserSnap.data().userFollowing) {
         const userFollowing = currUserSnap.data().userFollowing;
-        console.log("here");
         dispatch(setUserFollowing(userFollowing));
       }
     }

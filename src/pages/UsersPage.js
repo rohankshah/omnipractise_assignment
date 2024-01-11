@@ -6,18 +6,17 @@ import UserCard from "../components/UserCard";
 function UsersPage() {
   const allFetchedUsers = useSelector((state) => state && state.allUsers);
   const userFollowing = useSelector((state) => state && state.userFollowing);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [allUsers, setAllUsers] = useState([]);
   const [currUserFollowing, setCurrUserFollowing] = useState([]);
 
-  useEffect(() => {
-    dispatch(fetchAllUsers());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchAllUsers());
+  // }, [dispatch]);
 
   useEffect(() => {
     if (allFetchedUsers.length > 0) {
       setAllUsers(allFetchedUsers);
-      console.log(allFetchedUsers);
     }
   }, [allFetchedUsers]);
 

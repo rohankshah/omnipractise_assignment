@@ -2,10 +2,6 @@ import React, { useState } from "react";
 import moment from "moment";
 
 function PostCard(props) {
-  useState(() => {
-    console.log(moment(new Date(1704966788)));
-  }, []);
-
   return (
     <>
       {props.posts.map((post) => {

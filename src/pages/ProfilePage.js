@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProfilePosts from "../components/ProfilePosts";
+import { useSelector } from "react-redux";
 
 function ProfilePage() {
+  const authObj = useSelector((state) => state && state.authObj);
   const [selectedTab, setSelectedTab] = useState("posts");
 
   return (
@@ -11,7 +13,9 @@ function ProfilePage() {
         <div className="flex flex-row items-center">
           <div className="rounded-full h-36 w-36 border-2 border-gray-400"></div>
           <div className="flex flex-col ml-20">
-            <div className="text-gray-600 text-2xl">Rohan Shah</div>
+            <div className="text-gray-600 text-2xl">
+              {authObj?.displayName && authObj.displayName}
+            </div>
             <div className="flex flex-row mt-4 gap-4">
               <div className="text-gray-400 text-xl">Posts: 511</div>
               <div className="text-gray-400 text-xl">Posts: 511</div>

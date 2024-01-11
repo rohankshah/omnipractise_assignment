@@ -121,7 +121,7 @@ function FeedPage() {
         {feedPostObjs.length > 0 ? (
           <PostCard posts={feedPostObjs} />
         ) : (
-          <div>No posts</div>
+          <div>Follow some users to get feed</div>
         )}
       </div>
     </>
