@@ -1,34 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { getFirestore, getDocs, collection } from "firebase/firestore";
-import { useSelector } from "react-redux";
-import app from "../firebase";
+import React from "react";
 
 import PostCard from "./PostCard";
 
-function ProfilePosts() {
-  const authObj = useSelector((state) => state && state.authObj);
-  const [postObjs, setPostObjs] = useState([]);
-
-  useEffect(() => {
-    async function getUserPosts() {
-      const db = getFirestore(app);
-      const querySnapshot = await getDocs(collection(db, "posts"));
-      const currentPosts = [];
-      querySnapshot.forEach((doc) => {
-        if (doc.data().uid === authObj.uid) {
-          currentPosts.push({ ...doc.data(), postId: doc.id });
-        }
-      });
-      currentPosts.sort((a, b) => b.timestamp.seconds - a.timestamp.seconds);
-      console.log(currentPosts);
-      setPostObjs(currentPosts);
-    }
-    getUserPosts();
-  }, [authObj]);
-
+function ProfilePosts(props) {
   return (
     <div className="w-full">
-      {postObjs.length > 0 ? <PostCard posts={postObjs} /> : <div></div>}
+      {props.posts?.length > 0 ? (
+        <PostCard posts={props.posts} />
+      ) : (
+        <div className="flex justify-center items-center mt-14 text-xl text-gray-400">
+          You have no posts
+        </div>
+      )}
     </div>
   );
 }

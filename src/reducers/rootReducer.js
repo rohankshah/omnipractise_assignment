@@ -34,6 +34,8 @@ function rootReducer(state = initialState, action) {
         ...state.userFollowing.filter((ele) => ele !== action.payload),
       ],
     };
+  } else if (action.type === "USER-SIGNOUT-SUCCESS") {
+    return initialState;
   } else {
     return { ...state };
   }

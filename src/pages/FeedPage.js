@@ -121,7 +121,9 @@ function FeedPage() {
         {feedPostObjs.length > 0 ? (
           <PostCard posts={feedPostObjs} />
         ) : (
-          <div>Follow some users to get feed</div>
+          <div className="flex justify-center items-center mt-14 text-xl text-gray-400">
+            Follow some users to get feed
+          </div>
         )}
       </div>
     </>

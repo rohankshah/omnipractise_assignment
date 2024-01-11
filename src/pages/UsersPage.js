@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAllUsers } from "../actions/user-actions";
+import { useSelector } from "react-redux";
 import UserCard from "../components/UserCard";
 
 function UsersPage() {
   const allFetchedUsers = useSelector((state) => state && state.allUsers);
   const userFollowing = useSelector((state) => state && state.userFollowing);
-  // const dispatch = useDispatch();
   const [allUsers, setAllUsers] = useState([]);
   const [currUserFollowing, setCurrUserFollowing] = useState([]);
-
-  // useEffect(() => {
-  //   dispatch(fetchAllUsers());
-  // }, [dispatch]);
 
   useEffect(() => {
     if (allFetchedUsers.length > 0) {
@@ -35,6 +29,7 @@ function UsersPage() {
               key={user.uid}
               userName={user.name}
               uid={user.uid}
+              userFollowingCount={user.userFollowing.length}
               toggleFollowButton={
                 currUserFollowing.includes(user.uid) ? true : false
               }

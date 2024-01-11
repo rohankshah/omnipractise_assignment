@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
+  signOut,
 } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import app from "../firebase";
@@ -12,6 +13,12 @@ function userLoginSuccess(userCredential) {
   return {
     type: "USER-LOGIN-SUCCESS",
     payload: userCredential,
+  };
+}
+
+function userSignOutSuccess() {
+  return {
+    type: "USER-SIGNOUT-SUCCESS",
   };
 }
 
@@ -58,4 +65,18 @@ function loginExistingUser(userEmail, userPass) {
   };
 }
 
-export { signUpUser, loginExistingUser };
+function signOutUser() {
+  return (dispatch, state) => {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        console.log("signed out");
+        dispatch(userSignOutSuccess());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
+
+export { signUpUser, loginExistingUser, signOutUser };
