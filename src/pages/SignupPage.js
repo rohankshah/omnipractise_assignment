@@ -14,7 +14,6 @@ function SignupPage() {
   const [userPassLogin, setUserPassLogin] = useState("");
 
   function createUserAccount() {
-    console.log(userName, userEmail, userPass, userConfirmPass);
     if (
       userName !== "" &&
       userEmail !== "" &&
@@ -28,7 +27,6 @@ function SignupPage() {
   }
 
   function loginUser() {
-    console.log(userEmailLogin, userPassLogin);
     dispatch(loginExistingUser(userEmailLogin, userPassLogin));
   }
 

@@ -4,6 +4,8 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
+import app from "../firebase";
 
 function userLoginSuccess(userCredential) {
   return {
@@ -22,7 +24,12 @@ function signUpUser(userEmail, userPass, userName) {
           displayName: userName,
         })
           .then(() => {
-            dispatch(userLoginSuccess(userCredential.user));
+            const db = getFirestore(app);
+            var userUid = auth.currentUser.uid;
+            setDoc(doc(db, "users", userUid), {
+              name: userName,
+              email: userEmail,
+            }).then(() => dispatch(userLoginSuccess(userCredential.user)));
           })
           .catch((error) => {
             console.log(error);

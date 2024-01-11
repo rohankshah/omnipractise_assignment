@@ -2,31 +2,39 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import SignupPage from "./pages/SignupPage";
+import FeedPage from "./pages/FeedPage";
+import UsersPage from "./pages/UsersPage";
+import ProfilePage from "./pages/ProfilePage";
+import Navbar from "./components/Navbar";
 
 function App() {
   const navigate = useNavigate();
-  const authObj = useSelector((state) => state && state.authObj);
+  const loggedIn = useSelector((state) => state && state.loggedIn);
 
   useEffect(() => {
-    if (Object.keys(authObj).length > 0) {
-      navigate("/user");
+    if (!loggedIn) {
+      navigate("/");
     }
-  }, [authObj, navigate]);
+  }, [loggedIn, navigate]);
+
+  if (!loggedIn) {
+    return (
+      <div className="flex justify-center">
+        <Routes>
+          <Route path="/" element={<SignupPage />} />
+          <Route path="/account/*" element={<Navigate to="/" />} />
+        </Routes>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex justify-center">
+    <div className="flex flex-col items-center">
+      <Navbar />
       <Routes>
-        <Route path="/" element={<SignupPage />} />
-        <Route
-          path="/user"
-          element={
-            Object.keys(authObj).length > 0 ? (
-              <div>Logged in</div>
-            ) : (
-              <Navigate to="/" />
-            )
-          }
-        />
+        <Route index element={<FeedPage />} />
+        <Route path="/users" element={<UsersPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </div>
   );

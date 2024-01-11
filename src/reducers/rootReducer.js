@@ -1,5 +1,7 @@
 const initialState = {
   authObj: {},
+  loggedIn: false,
+  allUsers: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -7,6 +9,13 @@ function rootReducer(state = initialState, action) {
     return {
       ...state,
       authObj: action.payload,
+      loggedIn: true,
+    };
+  }
+  if (action.type === "SET-ALL-USERS") {
+    return {
+      ...state,
+      allUsers: action.payload,
     };
   } else {
     return { ...state };
