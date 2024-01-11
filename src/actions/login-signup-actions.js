@@ -27,7 +27,6 @@ function signUpUser(userEmail, userPass, userName) {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, userEmail, userPass)
       .then((userCredential) => {
-        console.log(userCredential);
         updateProfile(auth.currentUser, {
           displayName: userName,
         })
@@ -56,7 +55,6 @@ function loginExistingUser(userEmail, userPass) {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, userEmail, userPass)
       .then((userCredential) => {
-        console.log("login success");
         console.log(userCredential);
         dispatch(userLoginSuccess(userCredential.user));
       })
@@ -72,7 +70,6 @@ function signOutUser() {
     const auth = getAuth();
     signOut(auth)
       .then(() => {
-        console.log("signed out");
         dispatch(userSignOutSuccess());
       })
       .catch((error) => {

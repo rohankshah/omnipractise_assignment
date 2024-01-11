@@ -9,7 +9,6 @@ function ProfileFollowing(props) {
 
   useEffect(() => {
     if (allFetchedUsers.length > 0) {
-      console.log(allFetchedUsers);
       setCurrUserFollowing(
         allFetchedUsers.filter((ele) => userFollowing.includes(ele.uid))
       );

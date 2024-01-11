@@ -94,7 +94,6 @@ function publishNewPost(newPost) {
   return (dispatch, state) => {
     const currUserUid = state().authObj.uid;
     const currUserDisplayName = state().authObj.displayName;
-    console.log(state().authObj);
     const db = getFirestore(app);
     addDoc(collection(db, "posts"), {
       name: currUserDisplayName,

@@ -27,12 +27,10 @@ function FeedPage() {
         }
       });
       currentPosts.sort((a, b) => b.timestamp.seconds - a.timestamp.seconds);
-      console.log(currentPosts);
       setFeedPostObjs(currentPosts);
     }
     if (userFollowing.length > 0) {
       getUserPosts();
-      console.log(feedPostObjs);
     }
   }, [authObj, userFollowing]);
 
